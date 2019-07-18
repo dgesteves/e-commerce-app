@@ -1,2 +1,2 @@
-# e-comerce-app
-Full modern e comerce app
+# e-commerce-app
+Full modern e commerce app
