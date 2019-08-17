@@ -1,21 +1,35 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React, {useState, useEffect} from 'react';
+import {Switch, Route} from 'react-router-dom';
 
-import Home from './pages/Home/Home'
-import './App.css'
-import Shop from './pages/Shop/Shop'
-import Header from './components/Header/Header'
+import './App.css';
 
-const App = () => {
+import HomePage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
+import SignInAndSignUpPage
+  from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import Header from './components/header/header.component';
+import {auth} from './firebase/firebase.utils';
+
+function App() {
+
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => setCurrentUser(user));
+
+    console.log(currentUser);
+  }, [currentUser]);
+
   return (
-    <div>
-      <Header/>
-      <Switch>
-        <Route exact path={ '/' } component={ Home }/>
-        <Route exact path={ '/shop' } component={ Shop }/>
-      </Switch>
-    </div>
-  )
+      <div>
+        <Header currentUser={currentUser}/>
+        <Switch>
+          <Route exact path='/' component={HomePage}/>
+          <Route path='/shop' component={ShopPage}/>
+          <Route path='/signin' component={SignInAndSignUpPage}/>
+        </Switch>
+      </div>
+  );
 }
 
-export default App
+export default App;

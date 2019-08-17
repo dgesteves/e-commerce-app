@@ -1,4 +1,4 @@
-.item {
+.collection-item {
   width: 22%;
   display: flex;
   flex-direction: column;
@@ -11,9 +11,9 @@
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
-    }
+  }
 
-  .footer {
+  .collection-footer {
     width: 100%;
     height: 5%;
     display: flex;
@@ -23,10 +23,10 @@
     .name {
       width: 90%;
       margin-bottom: 15px;
-      }
+    }
 
     .price {
       width: 10%;
-      }
     }
   }
+}
