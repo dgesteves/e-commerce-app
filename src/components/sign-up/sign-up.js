@@ -33,7 +33,6 @@ const SignUp = () => {
     } catch (e) {
       console.error(e);
     }
-    console.log(displayName, email, password, confirmPassword);
   };
 
   return (

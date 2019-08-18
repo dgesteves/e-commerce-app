@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Switch, Route} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 
 import './App.css';
 
@@ -9,10 +10,11 @@ import SignInAndSignUpPage
   from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
+import {setCurrentUser} from './store/actions/user/user-action';
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     auth.onAuthStateChanged(
@@ -21,21 +23,20 @@ function App() {
             const userRef = await createUserProfileDocument(userAuth);
 
             userRef.onSnapshot(snapshot => {
-              setCurrentUser({
+              dispatch(setCurrentUser({
                 id: snapshot.id,
                 ...snapshot.data(),
-              });
+              }));
             });
           } else {
-            setCurrentUser(userAuth);
+            dispatch(setCurrentUser(userAuth));
           }
         });
-  }, []);
+  }, [dispatch]);
 
-  console.log(currentUser);
   return (
       <div>
-        <Header currentUser={currentUser} />
+        <Header />
         <Switch>
           <Route
               exact
